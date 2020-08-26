@@ -1,0 +1,114 @@
+﻿@using Inafocam.core.Modelos
+@using System.Globalization;
+
+<table id="page-length-option" class="display">
+
+
+    <thead>
+        <tr>
+
+        
+            @*<th>Codigo</th>*@
+            <th>Usuario</th>
+            <th>Nombre</th>
+            <th>Role</th>
+            <th>Email</th>
+          
+            <th>Estado</th>
+            <th class="center">Acciones</th>
+
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Usuario usuario in Model)
+        {
+             
+                var role = usuario.Role == null ? "No asignado" : usuario.Role;
+            
+    <tr>
+        @*<td>
+            <div class="row">
+                <div class="col s12 m12 l12 ml-2 mt-1">
+                    <p>
+                        <label>
+                            <input type="checkbox">
+                            <span>@num</span>
+                        </label>
+                    </p>
+                </div>
+            </div>
+        </td>*@
+        <td>@usuario?.UserName</td>
+        <td>@usuario?.Nombre @usuario?.Apellido</td>
+        <td>@role</td>
+        <td>@usuario?.Email</td>
+        @*<td><a class=" modal-trigger" href="#permisosmodal_@usuario.Id">@usuario.Role</a></td>*@
+        @if (usuario.Estado)
+        {
+            <td>
+
+                <span class="badge green white-text text-accent-2">Activo</span>
+                @*<a class="modal-trigger white-text" href="#">
+                    Activo
+                </a>*@
+
+            </td>
+        }
+        else
+        {
+
+            <td>
+                <span class="badge orange  white-text text-accent-2">Inactivo</span>
+            </td>
+            @*<td>
+                Inactivo
+            </td>*@
+        }
+        <td class="center">
+            <a class="tooltipped" data-position="top" data-tooltip="Editar" asp-area="Usuarios" asp-controller="Usuario" asp-action="PerfilUsuarioAdmin" asp-route-id="@usuario.Id">
+                <i class="material-icons">create</i>
+            </a>
+
+            <a class="modal-trigger tooltipped disabled" href="#formularioestado" data-position="top" data-tooltip="Cambiar estado" onclick="CambiarEstadoModal('@usuario.Id')">
+
+                <i class="material-icons">sync</i>
+                @*asp-area="Usuarios" asp-controller="Usuario" asp-action="CambiarEstado" asp-route-id="@usuario.Id"*@
+            </a>
+            <a class="modal-trigger tooltipped" href="#formulariopassword" data-toggle="modal" data-position="top" data-tooltip="Cambiar Contraseña" onclick="ResetPasswordModal('@usuario.Id')">
+
+                <i class="material-icons">
+                    lock_open
+                </i>
+            </a>
+
+        </td>
+        </tr>
+        }
+
+
+
+
+    </tbody>
+    <tfoot>
+        <tr>
+            @*<th>Codigo</th>*@
+            <th>Usuario</th>
+            <th>Nombre</th>
+            <th>Role</th>
+            <th>Email</th>
+
+            <th>Estado</th>
+            <th class="center">Acciones</th>
+
+        </tr>
+    </tfoot>
+</table>
+
+<div class="modal mt-4" id="formulariopassword"></div>
+
+<div class="row ">
+    <div class="col s5 center ml-10 mt-5 modal " id="formularioestado">
+
+    </div>
+</div>

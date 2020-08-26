@@ -1,0 +1,94 @@
+﻿@model Inafocam.Web.Areas.Profesores.Models.TeacherIndexViewModel
+
+<table id="page-length-option" class="display">
+
+    @*<label>Buscar:<input type="search" class="" placeholder="" aria-controls="page-length-option" id="column3_search"></label>
+        @*<div class="col s12 m3 l3" style="margin:0px;"></div>
+        <div class="col s12 m3 l3" style="margin:0px;"></div>
+        <div class="col s12 m2 l5" style="margin:0px;">
+
+
+        </div>*@
+    @*<div class="row">*@
+    @*<div class="col s12" style="margin:0px; padding:0px;">
+            This is an inline input field:
+            <div class="input-field inline">
+                <input id="email_inline" type="email" class="validate">
+                <label for="email_inline">Email</label>
+                <span class="helper-text" data-error="wrong" data-success="right">Helper text</span>
+            </div>
+        </div>*@
+    @*</div>*@
+    <thead>
+        <tr>
+            @* <th role="row" style="width: 50px;">Code</th>*@
+            <th>Id</th>
+            <th>Nombre Completo</th>
+            <th>Categoría</th>
+            <th>Estado</th>
+            <th class="center">Acciones</th>
+            @*<th>Estado</th>
+                <th style="width: 69px;"></th>*@
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.TeacherList)
+        {
+
+            <tr>
+                <td>@item?.TeacherId</td>
+                <td>@item?.Contact?.ContactName @item?.Contact?.ContactLastname</td>
+                <td>@item?.TeacherCategory</td>
+               @* <td>@item.HigherTeacherEducation?.TeacherEducationTitle</td>*@
+                <td>@item.Status?.StatusName</td>
+                <td class="center">
+                    <a asp-area="Profesores" asp-controller="Profesor" asp-action="Editar" asp-route-id="@item.TeacherId" class="tooltipped" data-position="top" data-tooltip="Editar" >
+                        <i class="material-icons">edit</i>
+                    </a>
+                    
+                    <a asp-area="Profesores" asp-controller="Profesor" asp-action="TeacherEducation" asp-route-id="@item.TeacherId" class="tooltipped" data-position="top" data-tooltip="Agregar Educacion" >
+                        <i class="material-icons">school</i>
+                    </a>  
+                    
+                    <a asp-area="Profesores" asp-controller="Profesor" asp-action="AgregarDocumento" asp-route-id="@item.TeacherId" class="tooltipped" data-position="top" data-tooltip="Agregar Documanto" >
+                        <i class="material-icons">folder_open</i>
+                    </a>
+                    
+                    <a asp-area="Profesores" asp-controller="Profesor" asp-action="AgregarDireccion" asp-route-id="@item.TeacherId" class="tooltipped" data-position="top" data-tooltip="Agregar Dirección" >
+                        <i class="material-icons">add_location</i>
+                    </a>  
+                    
+                    <a asp-area="Profesores" asp-controller="Profesor" asp-action="AgregarComunicacion" asp-route-id="@item.TeacherId" class="tooltipped" data-position="top" data-tooltip="Agregar Comunicación">
+                        <i class="material-icons">add_ic_call</i>
+                    </a>
+                </td>
+            </tr>
+
+        }
+
+
+
+
+
+    </tbody>
+    <tfoot>
+        <tr>
+            @* <th role="row" style="width: 50px;">Code</th>*@
+            <th>Id</th>
+            <th>Nombre Completo</th>
+            <th>Categoría</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+            @*<th>Estado</th>
+        <th style="width: 69px;"></th>*@
+        </tr>
+    </tfoot>
+</table>
+
+<div class="modal mt-4" id="formulariopassword"></div>
+
+<div class="row ">
+    <div class="col s5 center ml-10 mt-5 modal " id="formularioestado">
+
+    </div>
+</div>

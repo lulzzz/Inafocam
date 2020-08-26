@@ -1,0 +1,111 @@
+﻿@model Inafocam.Web.Areas.SeguimientoDeUniversidades.Models.IndexViewModel
+@using System.Globalization;
+
+<table id="page-length-option" class="display">
+
+
+    <thead>
+        <tr>
+
+            <th>Código Scat</th>
+            <th>Número de contrato</th>
+            <th>Institución</th>
+            <th>Programa</th>
+            <th>Coordinador</th>
+            <th>Fecha de Apertura</th>
+            <th>Fecha de Cierre</th>
+            <th>Tiempo Restante</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.AveliableScholarshipProgramTracingList)
+        {
+            var today = DateTime.Today;
+            var days = item.EndDate - today;
+            var text = days.Value.TotalDays > 9 ? "badge green  white-text text-accent-2 center" :
+                days.Value.TotalDays <= 9 && days.Value.TotalDays >= 2 ? "badge orange  white-text text-accent-2 center" :
+                "badge red  white-text text-accent-2 center";
+            var time = days.Value.Days > 1 ? days.Value.TotalDays : 0;
+
+<tr>
+
+    <td>@item?.ScholarshipProgramUniversity?.ScatProgramCode</td>
+    <td>@item?.ScholarshipProgramUniversity?.ContractNumber</td>
+    <td>@item?.University.UniversityName</td>
+    <td>@item?.ScholarshipProgramUniversity?.ScholarshipProgram?.ScholarshipProgramName</td>
+    <td>@item?.Coordinator?.Contact?.ContactName</td>
+    <td>@item?.StartDate?.ToString("D", CultureInfo.GetCultureInfo("es"))</td>
+    <td>@item?.EndDate?.ToString("D", CultureInfo.GetCultureInfo("es"))</td>
+
+    <td>
+
+        <span class="@text">@time</span>
+    </td>
+
+    <td>
+        @if (item?.Status?.StatusName == "Activo")
+        {
+
+<span class="badge green  white-text text-accent-2">@item?.Status?.StatusName</span>
+
+}
+else
+{
+<span class="badge red  white-text text-accent-2">@item?.Status?.StatusName</span>
+}
+
+    </td>
+    <td>
+        <a asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="Instrucciones" asp-route-tracingId="@item?.ScholarshipProgramTracingId" asp-route-programUniversityId="@item?.ScholarshipProgramUniversityId" class="tooltipped" data-position="top" data-tooltip="Comenzar">
+            <i class="material-icons">edit</i>
+        </a>
+
+
+        <a asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="Informes" asp-route-tracingId="@item?.ScholarshipProgramTracingId" asp-route-programUniversityId="@item?.ScholarshipProgramUniversityId" class="tooltipped" data-position="top" data-tooltip="Lista de informes">
+            <i class="material-icons">report</i>
+        </a>
+
+        @if (!Model.IsGestionUniversitariaRole)
+        {
+            <a asp-area="SeguimientoDeUniversidades" asp-controller="SeguimientoDeUniversida" asp-action="Comentarios" asp-route-tracingId="@item?.ScholarshipProgramTracingId" asp-route-programUniversityId="@item?.ScholarshipProgramUniversityId" class="tooltipped" data-position="top" data-tooltip="Ver la lista de comentarios">
+                <i class="material-icons">remove_red_eye</i>
+            </a>
+        }
+
+
+    </td>
+</tr>
+}
+
+
+
+
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>Código Scat</th>
+            <th>Número de contrato</th>
+            <th>Institución</th>
+            <th>Programa</th>
+            <th>Coordinador</th>
+            <th>Fecha de Apertura</th>
+            <th>Fecha de Cierree</th>
+            <th>Tiempo Restante</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+
+        </tr>
+    </tfoot>
+</table>
+
+<div class="modal mt-4" id="formulariopassword"></div>
+
+<div class="row ">
+    <div class="col s5 center ml-10 mt-5 modal " id="formularioestado">
+
+    </div>
+</div>

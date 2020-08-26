@@ -65,7 +65,6 @@ namespace Inafocam.core.Repository
             {
                 model.UpgradeDate = now;
                 
-                //model.HigherTeacherEducation.TeacherId = model.TeacherId;
                 _context.Teacher.Update(model);
 
             }
